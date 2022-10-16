@@ -13,10 +13,10 @@ struct HouseListView: View {
     
     var body: some View {
         NavigationView {
-            List(viewModel.houses) { house in
-                let viewModel = HouseDetailViewModel(house: house)
-                NavigationLink(destination: HouseDetailView(viewModel: viewModel)) {
-                    HStack {
+            VStack {
+                List(viewModel.houses) { house in
+                    let houseDetailViewModel = HouseDetailViewModel(house: house)
+                    NavigationLink(destination: HouseDetailView(viewModel: houseDetailViewModel)) {
                         VStack(alignment: .leading) {
                             Text(house.name)
                                 .font(.headline)
@@ -35,6 +35,9 @@ struct HouseListView: View {
                             }
                         }
                     }
+                }
+                if viewModel.isLoading {
+                    ProgressView()
                 }
             }.navigationTitle("Houses")
         }
