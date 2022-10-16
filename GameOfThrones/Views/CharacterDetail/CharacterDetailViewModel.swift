@@ -9,15 +9,13 @@ import Combine
 import Foundation
 
 class CharacterDetailViewModel: ObservableObject {
-    
     @Published var character: Character?
     var cancellableToken: AnyCancellable?
 }
 
-// TODO: make a protocol for looking up this stuff that all these view models comform to
 extension CharacterDetailViewModel {
     func getHouse(id: String) -> House? {
-        return LocalData.shared.houseList.first(where: { $0.url == "https://anapioficeandfire.com/api/houses/\(id)" })
+        return LocalData.shared.houseList.first(where: { $0.url == "\(Network.baseUrl)houses/\(id)" })
     }
     
     func getCharacter(id: String) -> Character? {

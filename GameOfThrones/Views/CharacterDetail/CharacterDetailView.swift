@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CharacterDetailView: View {
-    
     @ObservedObject var viewModel = CharacterDetailViewModel()
     var character: Character?
     
@@ -21,13 +20,11 @@ struct CharacterDetailView: View {
     }
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 15) {
-                name
-                basicInfoGroup
-                supplymentaryInfoGroup
-                Spacer()
-            }
+        VStack(alignment: .leading, spacing: 15) {
+            name
+            basicInfoGroup
+            supplymentaryInfoGroup
+            Spacer()
         }
     }
 }
@@ -50,12 +47,12 @@ private extension CharacterDetailView {
         if
             let character = character,
             character.gender.isNotEmpty {
-            HStack(spacing: 4) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text("Gender: ")
                     .font(.subheadline)
                     .fontWeight(.semibold)
                 Text(character.gender)
-                    .font(.subheadline)
+                    .font(.subheadline).foregroundColor(.purple)
             }
         }
     }
@@ -65,12 +62,12 @@ private extension CharacterDetailView {
         if
             let character = character,
             character.culture.isNotEmpty {
-            HStack(spacing: 4) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text("Culture: ")
                     .font(.subheadline)
                     .fontWeight(.semibold)
                 Text(character.culture)
-                    .font(.subheadline)
+                    .font(.subheadline).foregroundColor(.orange)
             }
         }
     }
@@ -80,7 +77,7 @@ private extension CharacterDetailView {
         if
             let character = character,
             character.born.isNotEmpty {
-            HStack(spacing: 4) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text("Born: ")
                     .font(.subheadline)
                     .fontWeight(.semibold)
@@ -95,7 +92,7 @@ private extension CharacterDetailView {
         if
             let character = character,
             character.died.isNotEmpty {
-            HStack(spacing: 4) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text("Died: ")
                     .font(.subheadline)
                     .fontWeight(.semibold)
@@ -110,7 +107,7 @@ private extension CharacterDetailView {
         if
             let character = character,
             character.father.isNotEmpty {
-            HStack(spacing: 4) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text("Father: ")
                     .font(.subheadline)
                     .fontWeight(.semibold)
@@ -128,7 +125,7 @@ private extension CharacterDetailView {
         if
             let character = character,
             character.mother.isNotEmpty {
-            HStack(spacing: 4) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text("Mother: ")
                     .font(.subheadline)
                     .fontWeight(.semibold)
@@ -143,7 +140,7 @@ private extension CharacterDetailView {
     
     @ViewBuilder
     var spouse: some View {
-        HStack(spacing: 4) {
+        VStack(alignment: .leading, spacing: 0) {
             Text("Spouse: ")
                 .font(.subheadline)
                 .fontWeight(.semibold)
@@ -193,7 +190,7 @@ private extension CharacterDetailView {
     
     @ViewBuilder
     var basicInfoGroup: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        Group {
             gender
             culture
             born
@@ -237,7 +234,7 @@ private extension CharacterDetailView {
                     .fontWeight(.semibold)
                 ForEach(character.books, id: \.self) { book in
                     if let book = getBookByUrl(book) {
-                        Text(book.name).font(.subheadline)
+                        Text(book.name).font(.subheadline).foregroundColor(.green)
                     }
                 }
             }
@@ -254,7 +251,7 @@ private extension CharacterDetailView {
                     .font(.subheadline)
                     .fontWeight(.semibold)
                 ForEach(character.povBooks, id: \.self) { book in
-                    Text(book).font(.subheadline)
+                    Text(book).font(.subheadline).foregroundColor(.yellow)
                 }
             }
         }
@@ -270,7 +267,7 @@ private extension CharacterDetailView {
                     .font(.subheadline)
                     .fontWeight(.semibold)
                 ForEach(character.tvSeries, id: \.self) { series in
-                    Text(series).font(.subheadline)
+                    Text(series).font(.subheadline).foregroundColor(.red)
                 }
             }
         }

@@ -9,18 +9,20 @@ import Combine
 import Foundation
 
 enum Network {
+    // shared instance of the API client used to make network calls. Used below
     static let apiClient = APIClient()
+    // base url of the API
     static let baseUrl = URL(string: "https://anapioficeandfire.com/api/")!
 }
 
+// API paths restricted to using these enums for requesting books, characters and houses
 enum APIPath: String {
     case book = "books"
     case house = "houses"
     case character = "characters"
 }
 
-extension Network {    
-    
+extension Network {
     static func request(character id: String) -> AnyPublisher<Character, Error> {
         return makeRequest(path: .character, id: id)
     }

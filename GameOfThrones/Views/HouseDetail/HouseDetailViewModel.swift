@@ -20,7 +20,7 @@ class HouseDetailViewModel {
 
 extension HouseDetailViewModel {
     func getHouse(id: String) -> House? {
-        return LocalData.shared.houseList.first(where: { $0.url == "https://anapioficeandfire.com/api/houses/\(id)" })
+        return LocalData.shared.houseList.first(where: { $0.url == "\(Network.baseUrl)houses/\(id)" })
     }
     
     func getCharacter(id: String) -> Character? {

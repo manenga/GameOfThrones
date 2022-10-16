@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		E603EA8628FADE700021286C /* GameOfThronesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EA8528FADE700021286C /* GameOfThronesApp.swift */; };
-		E603EA8828FADE700021286C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EA8728FADE700021286C /* ContentView.swift */; };
 		E603EA8A28FADE730021286C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E603EA8928FADE730021286C /* Assets.xcassets */; };
 		E603EA8E28FADE730021286C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E603EA8D28FADE730021286C /* Preview Assets.xcassets */; };
 		E603EA9828FADE730021286C /* GameOfThronesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EA9728FADE730021286C /* GameOfThronesTests.swift */; };
@@ -30,6 +29,7 @@
 		E603EAD428FC8F6D0021286C /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EAD328FC8F6D0021286C /* LocalData.swift */; };
 		E603EAD728FC9F6E0021286C /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EAD628FC9F6E0021286C /* SearchBar.swift */; };
 		E603EAD928FCA2290021286C /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EAD828FCA2290021286C /* UIApplicationExtensions.swift */; };
+		E603EADB28FCAF780021286C /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EADA28FCAF780021286C /* ColorExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +52,6 @@
 /* Begin PBXFileReference section */
 		E603EA8228FADE700021286C /* GameOfThrones.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameOfThrones.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E603EA8528FADE700021286C /* GameOfThronesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOfThronesApp.swift; sourceTree = "<group>"; };
-		E603EA8728FADE700021286C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E603EA8928FADE730021286C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E603EA8B28FADE730021286C /* GameOfThrones.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GameOfThrones.entitlements; sourceTree = "<group>"; };
 		E603EA8D28FADE730021286C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -77,6 +76,7 @@
 		E603EAD328FC8F6D0021286C /* LocalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
 		E603EAD628FC9F6E0021286C /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		E603EAD828FCA2290021286C /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
+		E603EADA28FCAF780021286C /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,9 +177,9 @@
 		E603EAC128FAF9700021286C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E603EAD528FC9F5F0021286C /* SearchBar */,
 				E603EAC328FAFABE0021286C /* HouseList */,
 				E603EAC428FAFB050021286C /* HouseDetail */,
-				E603EA8728FADE700021286C /* ContentView.swift */,
 				E603EAC728FAFC280021286C /* CharacterDetail */,
 			);
 			path = Views;
@@ -198,7 +198,6 @@
 		E603EAC328FAFABE0021286C /* HouseList */ = {
 			isa = PBXGroup;
 			children = (
-				E603EAD528FC9F5F0021286C /* SearchBar */,
 				E603EAB028FAE0700021286C /* HouseListView.swift */,
 				E603EAB428FAE0B00021286C /* HouseListViewModel.swift */,
 			);
@@ -229,6 +228,7 @@
 				E603EABA28FAEBCE0021286C /* StringExtensions.swift */,
 				E603EACD28FB49CA0021286C /* ArrayExtensions.swift */,
 				E603EAD828FCA2290021286C /* UIApplicationExtensions.swift */,
+				E603EADA28FCAF780021286C /* ColorExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -376,7 +376,7 @@
 				E603EABB28FAEBCE0021286C /* StringExtensions.swift in Sources */,
 				E603EAB928FAE0DB0021286C /* Network.swift in Sources */,
 				E603EACB28FAFC9F0021286C /* CharacterDetailView.swift in Sources */,
-				E603EA8828FADE700021286C /* ContentView.swift in Sources */,
+				E603EADB28FCAF780021286C /* ColorExtensions.swift in Sources */,
 				E603EAB528FAE0B00021286C /* HouseListViewModel.swift in Sources */,
 				E603EAB328FAE08A0021286C /* House.swift in Sources */,
 				E603EAB128FAE0700021286C /* HouseListView.swift in Sources */,

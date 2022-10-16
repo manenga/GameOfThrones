@@ -14,7 +14,7 @@ struct SearchBar: View {
     var body: some View {
         ZStack {
              Rectangle()
-                 .foregroundColor(Color("LightGray"))
+                .foregroundColor(Color.gray.opacity(0.25))
              HStack {
                  Image(systemName: "magnifyingglass")
                  TextField("Search...", text: $searchText) { startedEditing in
@@ -30,10 +30,10 @@ struct SearchBar: View {
                  }
              }
              .foregroundColor(.gray)
-             .padding(.leading, 13)
+             .padding(.leading, 12)
          }
          .frame(height: 40)
-         .cornerRadius(13)
+         .cornerRadius(12)
          .padding()
     }
 }
