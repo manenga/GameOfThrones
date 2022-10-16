@@ -8,7 +8,8 @@
 import Foundation
 
 extension String {
+    // remove all spaces and check if the string is empty
     var isNotEmpty: Bool {
-        return !self.isEmpty
+        return !String(self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)).isEmpty
     }
 }

@@ -28,7 +28,7 @@ struct HouseDetailView: View {
                 supplymentaryInfoGroup
                 Spacer()
             }
-        }
+        }.padding(16)
     }
 }
 
@@ -54,7 +54,7 @@ private extension HouseDetailView {
         if
             let house = house,
             house.words.isNotEmpty {
-            HStack(spacing: 4) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text("Words: ")
                     .font(.subheadline)
                     .fontWeight(.semibold)
@@ -69,7 +69,7 @@ private extension HouseDetailView {
         if
             let house = house,
             house.region.isNotEmpty {
-            HStack(spacing: 4) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text("Region: ")
                     .font(.subheadline)
                     .fontWeight(.semibold)
@@ -81,9 +81,9 @@ private extension HouseDetailView {
     
     @ViewBuilder
     var basicInfoGroup: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            region
+        Group {
             words
+            region
         }
     }
     
@@ -401,7 +401,7 @@ struct HouseDetailView_Previews: PreviewProvider {
             heir: "",
             overlord: "",
             founded: "House Targaryen: >114 BCHouse Targaryen of King's Landing:1 AC",
-            founder: "",
+            founder: " ",
             diedOut: "",
             ancestralWeapons: [
                 "Blackfyre",

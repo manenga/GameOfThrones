@@ -17,7 +17,7 @@ struct HouseListView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(alignment: .leading) {
                 List(LocalData.shared.houseList) { house in
                     let houseDetailViewModel = HouseDetailViewModel(house: house)
                     NavigationLink(destination: HouseDetailView(viewModel: houseDetailViewModel)) {
@@ -26,16 +26,30 @@ struct HouseListView: View {
                                 .font(.headline)
                             if house.words.isNotEmpty {
                                 Text(house.words)
-                                    .font(.subheadline)
+                                    .font(.headline)
                                     .fontWeight(.bold)
+                                    .foregroundColor(Color.gray)
+                                Spacer()
                             }
                             if house.region.isNotEmpty {
-                                Text("Region: \(house.region)")
-                                    .font(.subheadline)
+                                HStack {
+                                    Text("Region:")
+                                        .font(.subheadline)
+                                        .fontWeight(.medium)
+                                        .foregroundColor(Color.red)
+                                    Text(house.region)
+                                        .font(.subheadline)
+                                }
                             }
                             if house.coatOfArms.isNotEmpty {
-                                Text("Coat Of Arms: \(house.coatOfArms)")
-                                    .font(.subheadline)
+                                VStack(alignment: .leading) {
+                                    Text("Coat Of Arms:")
+                                        .font(.subheadline)
+                                        .fontWeight(.medium)
+                                        .foregroundColor(Color.orange)
+                                    Text(house.coatOfArms)
+                                        .font(.subheadline)
+                                }
                             }
                         }
                     }
@@ -43,7 +57,7 @@ struct HouseListView: View {
                 if viewModel.isLoading {
                     ProgressView()
                 }
-            }.navigationTitle("Houses")
+            }.navigationTitle("House Index")
         }
     }
 }
