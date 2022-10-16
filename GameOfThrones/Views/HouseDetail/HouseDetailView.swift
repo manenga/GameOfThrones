@@ -13,12 +13,11 @@ struct HouseDetailView: View {
     
     init(viewModel: HouseDetailViewModel) {
         self.viewModel = viewModel
-        populateHouses()
         populateCharacters()
     }
     
     var body: some View {
-        ScrollView() {
+        ScrollView {
             VStack(alignment: .leading, spacing: 15) {
                 name
                 basicInfoGroup
@@ -325,46 +324,31 @@ extension HouseDetailView {
         if let house = house {
             if let index = house.heir.lastIndex(of: "/") {
                 let id = String(house.heir.suffix(from: index).dropFirst())
-                viewModel.getCharacter(id: id)
+                viewModel.fetchCharacter(id: id)
             }
             if let index = house.currentLord.lastIndex(of: "/") {
                 let id = String(house.currentLord.suffix(from: index).dropFirst())
-                viewModel.getCharacter(id: id)
+                viewModel.fetchCharacter(id: id)
             }
             if let index = house.founder.lastIndex(of: "/") {
                 let id = String(house.founder.suffix(from: index).dropFirst())
-                viewModel.getCharacter(id: id)
+                viewModel.fetchCharacter(id: id)
             }
             
             let _ = house.swornMembers.compactMap({ member in
                 if let index = member.lastIndex(of: "/") {
                     let id = String(member.suffix(from: index).dropFirst())
-                    viewModel.getCharacter(id: id)
+                    viewModel.fetchCharacter(id: id)
                 }
             })
         }
-    }
-    
-    private func populateHouses() {
-//        if let house = house {
-//            if let index = house.overlord.lastIndex(of: "/") {
-//                let id = String(house.overlord.suffix(from: index).dropFirst())
-//                viewModel.getHouse(id: id)
-//            }
-//            for branch in house.cadetBranches {
-//                if let index = branch.lastIndex(of: "/") {
-//                    let id = String(branch.suffix(from: index).dropFirst())
-//                    viewModel.getHouse(id: id)
-//                }
-//            }
-//        }
     }
     
     private func getCharacterByUrl(_ url: String) -> Character? {
         if
             let index = url.lastIndex(of: "/") {
             let id = String(url.suffix(from: index).dropFirst())
-            return viewModel.characters[id]
+            return viewModel.getCharacter(id: id)
         }
         return nil
     }

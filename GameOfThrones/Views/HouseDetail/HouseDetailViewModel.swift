@@ -11,7 +11,6 @@ import Foundation
 class HouseDetailViewModel {
     
     var house: House?
-    @Published var characters: [String: Character] = [String: Character]()
     var cancellableToken: AnyCancellable? = nil
     
     init(house: House? = nil) {
@@ -24,15 +23,24 @@ extension HouseDetailViewModel {
         return LocalData.shared.houseList.first(where: { $0.url == "https://anapioficeandfire.com/api/houses/\(id)" })
     }
     
-    func getCharacter(id: String) {
+    func getCharacter(id: String) -> Character? {
+        if let character = LocalData.shared.characters[id] {
+            return character
+        }
+        return nil
+    }
+    
+    func fetchCharacter(id: String) {
+        guard LocalData.shared.characters[id] == nil else { return }
+        // if we already have the Character, no need to fetch it!
         cancellableToken = Network.request(character: id)
             .mapError({ (error) -> Error in
                 print(error)
                 return error
             })
             .sink(receiveCompletion: { _ in },
-                  receiveValue: { [weak self] in
-                self?.characters[id] = $0
+                  receiveValue: { character in
+                LocalData.shared.characters[id] = character
             })
     }
 }

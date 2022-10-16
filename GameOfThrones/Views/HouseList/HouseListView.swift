@@ -14,11 +14,14 @@ struct HouseListView: View {
     
     /// the view model that powers the `HouseListView`
     @ObservedObject var viewModel = HouseListViewModel()
+    @State var searchText: String = ""
+    @State var searching = false
     
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                List(LocalData.shared.houseList) { house in
+                SearchBar(searchText: $searchText, searching: $searching)
+                List(getHouseIndex()) { house in
                     let houseDetailViewModel = HouseDetailViewModel(house: house)
                     NavigationLink(destination: HouseDetailView(viewModel: houseDetailViewModel)) {
                         VStack(alignment: .leading) {
@@ -54,10 +57,37 @@ struct HouseListView: View {
                         }
                     }
                 }
+                .gesture(
+                    DragGesture()
+                        .onChanged({ _ in
+                            UIApplication.shared.dismissKeyboard()
+                        })
+                 )
                 if viewModel.isLoading {
                     ProgressView()
                 }
-            }.navigationTitle("House Index")
+            }
+            .navigationTitle(searching ? "Searching" : "House Index")
+            .toolbar {
+                 if searching {
+                     Button("Cancel") {
+                         searchText = ""
+                         withAnimation {
+                             searching = false
+                         }
+                     }
+                 }
+             }
+        }
+    }
+}
+
+extension HouseListView {
+    private func getHouseIndex() -> [House] {
+        if searching && searchText.isNotEmpty {
+            return LocalData.shared.houseList.filter({ $0.name.contains(searchText) })
+        } else {
+            return LocalData.shared.houseList
         }
     }
 }

@@ -10,21 +10,18 @@ import SwiftUI
 struct CharacterDetailView: View {
     
     @ObservedObject var viewModel = CharacterDetailViewModel()
-    var characterId: String?
     var character: Character?
     
-    init(viewModel: CharacterDetailViewModel = CharacterDetailViewModel(), characterId: String? = nil, character: Character? = nil) {
+    init(viewModel: CharacterDetailViewModel = CharacterDetailViewModel(), character: Character? = nil) {
         self.viewModel = viewModel
-        self.characterId = characterId
         self.character = character
-        self.viewModel.getCharacter(id: characterId ?? "")
         populateBooks()
         populateHouses()
         populateCharacters()
     }
     
     var body: some View {
-        ScrollView() {
+        ScrollView {
             VStack(alignment: .leading, spacing: 15) {
                 name
                 basicInfoGroup
@@ -313,15 +310,15 @@ extension CharacterDetailView {
         if let character = character {
             if let index = character.spouse.lastIndex(of: "/") {
                 let id = String(character.spouse.suffix(from: index).dropFirst())
-                viewModel.fecthCharacter(id: id)
+                viewModel.fetchCharacter(id: id)
             }
             if let index = character.father.lastIndex(of: "/") {
                 let id = String(character.father.suffix(from: index).dropFirst())
-                viewModel.fecthCharacter(id: id)
+                viewModel.fetchCharacter(id: id)
             }
             if let index = character.mother.lastIndex(of: "/") {
                 let id = String(character.mother.suffix(from: index).dropFirst())
-                viewModel.fecthCharacter(id: id)
+                viewModel.fetchCharacter(id: id)
             }
         }
     }
@@ -331,7 +328,7 @@ extension CharacterDetailView {
             let _ = character.allegiances.compactMap({ house in
                 if let index = house.lastIndex(of: "/") {
                     let id = String(house.suffix(from: index).dropFirst())
-                    viewModel.fecthCharacter(id: id)
+                    viewModel.fetchCharacter(id: id)
                 }
             })
         }
@@ -342,13 +339,13 @@ extension CharacterDetailView {
             let _ = character.books.compactMap({ house in
                 if let index = house.lastIndex(of: "/") {
                     let id = String(house.suffix(from: index).dropFirst())
-                    viewModel.fecthBook(id: id)
+                    viewModel.fetchBook(id: id)
                 }
             })
             let _ = character.povBooks.compactMap({ house in
                 if let index = house.lastIndex(of: "/") {
                     let id = String(house.suffix(from: index).dropFirst())
-                    viewModel.fecthBook(id: id)
+                    viewModel.fetchBook(id: id)
                 }
             })
         }
@@ -384,6 +381,6 @@ extension CharacterDetailView {
 
 struct CharacterDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        return CharacterDetailView(characterId: "25")
+        return CharacterDetailView()
     }
 }

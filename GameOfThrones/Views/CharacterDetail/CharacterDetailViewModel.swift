@@ -27,7 +27,7 @@ extension CharacterDetailViewModel {
         return nil
     }
     
-    func fecthCharacter(id: String) {
+    func fetchCharacter(id: String) {
         guard LocalData.shared.characters[id] == nil else { return }
         // if we already have the Character, no need to fetch it!
         cancellableToken = Network.request(character: id)
@@ -48,7 +48,7 @@ extension CharacterDetailViewModel {
         return nil
     }
     
-    func fecthBook(id: String) {
+    func fetchBook(id: String) {
         guard LocalData.shared.books[id] == nil else { return }
         // if we already have the book, no need to fetch it!
         cancellableToken = Network.request(book: id)

@@ -28,6 +28,8 @@
 		E603EACE28FB49CA0021286C /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EACD28FB49CA0021286C /* ArrayExtensions.swift */; };
 		E603EAD028FC7B050021286C /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EACF28FC7B050021286C /* Book.swift */; };
 		E603EAD428FC8F6D0021286C /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EAD328FC8F6D0021286C /* LocalData.swift */; };
+		E603EAD728FC9F6E0021286C /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EAD628FC9F6E0021286C /* SearchBar.swift */; };
+		E603EAD928FCA2290021286C /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EAD828FCA2290021286C /* UIApplicationExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +75,8 @@
 		E603EACD28FB49CA0021286C /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		E603EACF28FC7B050021286C /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		E603EAD328FC8F6D0021286C /* LocalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
+		E603EAD628FC9F6E0021286C /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		E603EAD828FCA2290021286C /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +198,7 @@
 		E603EAC328FAFABE0021286C /* HouseList */ = {
 			isa = PBXGroup;
 			children = (
+				E603EAD528FC9F5F0021286C /* SearchBar */,
 				E603EAB028FAE0700021286C /* HouseListView.swift */,
 				E603EAB428FAE0B00021286C /* HouseListViewModel.swift */,
 			);
@@ -223,8 +228,17 @@
 			children = (
 				E603EABA28FAEBCE0021286C /* StringExtensions.swift */,
 				E603EACD28FB49CA0021286C /* ArrayExtensions.swift */,
+				E603EAD828FCA2290021286C /* UIApplicationExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E603EAD528FC9F5F0021286C /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				E603EAD628FC9F6E0021286C /* SearchBar.swift */,
+			);
+			path = SearchBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,6 +371,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E603EAD928FCA2290021286C /* UIApplicationExtensions.swift in Sources */,
 				E603EAC628FAFB2F0021286C /* HouseDetailViewModel.swift in Sources */,
 				E603EABB28FAEBCE0021286C /* StringExtensions.swift in Sources */,
 				E603EAB928FAE0DB0021286C /* Network.swift in Sources */,
@@ -372,6 +387,7 @@
 				E603EAC928FAFC450021286C /* CharacterDetailViewModel.swift in Sources */,
 				E603EAB728FAE0C70021286C /* APIClient.swift in Sources */,
 				E603EABD28FAF2A60021286C /* HouseDetailView.swift in Sources */,
+				E603EAD728FC9F6E0021286C /* SearchBar.swift in Sources */,
 				E603EAD428FC8F6D0021286C /* LocalData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
