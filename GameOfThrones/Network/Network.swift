@@ -13,20 +13,28 @@ enum Network {
     static let baseUrl = URL(string: "https://anapioficeandfire.com/api/")!
 }
 
+enum APIPath: String {
+    case book = "books"
+    case house = "houses"
+    case character = "characters"
+}
+
 extension Network {    
     
-    // TODO: (manenga) for security enums are better to use here for the path, not string
     static func request(character id: String) -> AnyPublisher<Character, Error> {
-        guard let components = URLComponents(url: baseUrl.appendingPathComponent("characters/\(id)"), resolvingAgainstBaseURL: true)
-            else { fatalError("Couldn't create URLComponents") }
-        let request = URLRequest(url: components.url!)
-        return apiClient.run(request)
-            .map(\.value)
-            .eraseToAnyPublisher()
+        return makeRequest(path: .character, id: id)
     }
     
     static func request(house id: String) -> AnyPublisher<House, Error> {
-        guard let components = URLComponents(url: baseUrl.appendingPathComponent("house/\(id)"), resolvingAgainstBaseURL: true)
+        return makeRequest(path: .house, id: id)
+    }
+    
+    static func request(book id: String) -> AnyPublisher<Book, Error> {
+        return makeRequest(path: .book, id: id)
+    }
+    
+    private static func makeRequest<T: Decodable>(path: APIPath, id: String) -> AnyPublisher<T, Error> {
+        guard let components = URLComponents(url: baseUrl.appendingPathComponent("\(path.rawValue)/\(id)"), resolvingAgainstBaseURL: true)
             else { fatalError("Couldn't create URLComponents") }
         let request = URLRequest(url: components.url!)
         return apiClient.run(request)

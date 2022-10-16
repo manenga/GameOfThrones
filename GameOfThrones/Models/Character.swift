@@ -7,7 +7,10 @@
 
 import Foundation
 
-struct Character: Codable, Identifiable {
+/**
+ A `Character` represents a person in the Game of Thrones world
+*/
+struct Character: Codable, Identifiable, Hashable {
     
     /// unique house Identifiable number
     var id = UUID()
@@ -60,6 +63,7 @@ struct Character: Codable, Identifiable {
     /// An array of actor names that has played this character in the TV show Game Of Thrones.
     let playedBy: [String]
 
+    /// keys used to query values from the json object
     enum CodingKeys: String, CodingKey {
         case url
         case name

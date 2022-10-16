@@ -11,36 +11,17 @@ import Foundation
 class HouseDetailViewModel {
     
     var house: House?
-    @Published var character: Character?
-    var cancellableToken: AnyCancellable?
+    @Published var characters: [String: Character] = [String: Character]()
+    var cancellableToken: AnyCancellable? = nil
     
-    init(house: House? = nil,
-         houseId: String? = nil,
-         character: Character? = nil,
-         cancellableToken: AnyCancellable? = nil) {
+    init(house: House? = nil) {
         self.house = house
-        self.character = character
-        self.cancellableToken = cancellableToken
-        guard
-            house == nil,
-            let houseId = houseId
-        else { return }
-        getHouse(id: houseId)
     }
 }
 
 extension HouseDetailViewModel {
-    func getHouse(id: String) {
-        cancellableToken = Network.request(house: id)
-            .mapError({ (error) -> Error in
-                print(error)
-                return error
-            })
-            .sink(receiveCompletion: { _ in },
-                  receiveValue: {
-                debugPrint("House found: \($0)")
-                self.house = $0
-            })
+    func getHouse(id: String) -> House? {
+        return LocalData.shared.houseList.first(where: { $0.url == "https://anapioficeandfire.com/api/houses/\(id)" })
     }
     
     func getCharacter(id: String) {
@@ -50,9 +31,8 @@ extension HouseDetailViewModel {
                 return error
             })
             .sink(receiveCompletion: { _ in },
-                  receiveValue: {
-                debugPrint("Character found: \($0)")
-                self.character = $0
+                  receiveValue: { [weak self] in
+                self?.characters[id] = $0
             })
     }
 }

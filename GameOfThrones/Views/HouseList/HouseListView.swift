@@ -7,14 +7,18 @@
 
 import SwiftUI
 
+/**
+ A `HouseListView` represents a screen with a list of all the houses of Game of Thrones
+*/
 struct HouseListView: View {
     
+    /// the view model that powers the `HouseListView`
     @ObservedObject var viewModel = HouseListViewModel()
     
     var body: some View {
         NavigationView {
             VStack {
-                List(viewModel.houses) { house in
+                List(LocalData.shared.houseList) { house in
                     let houseDetailViewModel = HouseDetailViewModel(house: house)
                     NavigationLink(destination: HouseDetailView(viewModel: houseDetailViewModel)) {
                         VStack(alignment: .leading) {
@@ -45,7 +49,6 @@ struct HouseListView: View {
 }
 
 struct HouseListView_Previews: PreviewProvider {
-    
     static var previews: some View {
         HouseListView()
     }

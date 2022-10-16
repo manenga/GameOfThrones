@@ -11,6 +11,12 @@ struct HouseDetailView: View {
     
     var viewModel: HouseDetailViewModel
     
+    init(viewModel: HouseDetailViewModel) {
+        self.viewModel = viewModel
+        populateHouses()
+        populateCharacters()
+    }
+    
     var body: some View {
         ScrollView() {
             VStack(alignment: .leading, spacing: 15) {
@@ -98,7 +104,7 @@ private extension HouseDetailView {
         Group {
             ancestralWeapons
             cadetBranches
-//            swornMembers
+            swornMembers
         }
     }
     
@@ -180,11 +186,12 @@ private extension HouseDetailView {
                 Text("Lord:")
                     .font(.subheadline)
                     .fontWeight(.semibold)
-                if let index = house.currentLord.lastIndex(of: "/") {
-                    let id = String(house.currentLord.suffix(from: index).dropFirst())
-                    NavigationLink(destination: CharacterDetailView(characterId: id)) {
-                        Text("tap to view").font(.subheadline)
+                if let character = getCharacterByUrl(house.currentLord) {
+                    NavigationLink(destination: CharacterDetailView(character: character)) {
+                        Text(character.name).font(.subheadline)
                     }
+                } else {
+                    Text("none").font(.subheadline)
                 }
             }
         }
@@ -192,19 +199,18 @@ private extension HouseDetailView {
     
     @ViewBuilder
     var heir: some View {
-        if
-            let house = house,
-            house.heir.isNotEmpty {
-            VStack(alignment: .leading) {
-                Text("Heir:")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                if let index = house.heir.lastIndex(of: "/") {
-                    let id = String(house.heir.suffix(from: index).dropFirst())
-                    NavigationLink(destination: CharacterDetailView(characterId: id)) {
-                        Text("tap to view").font(.subheadline)
-                    }
+        VStack(alignment: .leading) {
+            Text("Heir:")
+                .font(.subheadline)
+                .fontWeight(.semibold)
+            if
+                let heir = house?.heir,
+                let character = getCharacterByUrl(heir) {
+                NavigationLink(destination: CharacterDetailView(character: character)) {
+                    Text(character.name).font(.subheadline)
                 }
+            } else {
+                Text("none").font(.subheadline)
             }
         }
     }
@@ -218,8 +224,12 @@ private extension HouseDetailView {
                 Text("Overlord:")
                     .font(.subheadline)
                     .fontWeight(.semibold)
-                NavigationLink(destination: HouseDetailView(viewModel: HouseDetailViewModel(houseId: house.overlord))) {
-                    Text("tap to view").font(.subheadline)
+                if let house = getHouseByUrl(house.overlord) {
+                    NavigationLink(destination: HouseDetailView(viewModel: HouseDetailViewModel(house: house))) {
+                        Text(house.name).font(.subheadline)
+                    }
+                } else {
+                    Text("none").font(.subheadline)
                 }
             }
         }
@@ -234,10 +244,9 @@ private extension HouseDetailView {
                 Text("Founder:")
                     .font(.subheadline)
                     .fontWeight(.semibold)
-                if let index = house.founder.lastIndex(of: "/") {
-                    let id = String(house.founder.suffix(from: index).dropFirst())
-                    NavigationLink(destination: CharacterDetailView(characterId: id)) {
-                        Text("tap to view").font(.subheadline)
+                if let character = getCharacterByUrl(house.founder) {
+                    NavigationLink(destination: CharacterDetailView(character: character)) {
+                        Text(character.name).font(.subheadline)
                     }
                 }
             }
@@ -252,46 +261,122 @@ private extension HouseDetailView {
             VStack(alignment: .leading) {
                 Text("Ancestral Weapons:")
                     .font(.subheadline).fontWeight(.bold)
-                ForEach(house.ancestralWeapons, id: \.self) { seat in
-                    Text(seat).font(.subheadline)
+                ForEach(house.ancestralWeapons, id: \.self) { weapon in
+                    Text(weapon).font(.subheadline)
                 }
             }
         }
+    }
+    
+    var branches: [House] {
+        if
+            let house = house,
+            house.cadetBranches.isNotEmpty{
+            return house.cadetBranches.compactMap({ getHouseByUrl($0) })
+        }
+        return []
     }
     
     @ViewBuilder
     var cadetBranches: some View {
         if
-            let house = house,
-            house.cadetBranches.isNotEmpty {
+            branches.isNotEmpty {
             VStack(alignment: .leading) {
                 Text("Cadet Branches:")
                     .font(.subheadline).fontWeight(.bold)
-                ForEach(house.cadetBranches, id: \.self) { seat in
-                    Text(seat).font(.subheadline)
+                ForEach(branches, id: \.self) { cadetBranch in
+                    NavigationLink(destination: HouseDetailView(viewModel: HouseDetailViewModel(house: cadetBranch))) {
+                        Text(cadetBranch.name).font(.subheadline)
+                    }
                 }
             }
         }
     }
     
+    var members: [Character] {
+        if
+            let house = house,
+            house.swornMembers.isNotEmpty{
+            return house.swornMembers.compactMap({ getCharacterByUrl($0) })
+        }
+        return []
+    }
+    
     @ViewBuilder
     var swornMembers: some View {
         if
-            let house = house,
-            house.swornMembers.isNotEmpty {
+            members.isNotEmpty {
             VStack(alignment: .leading) {
-                Text("Sworn Memberss:")
+                Text("Sworn Members:")
                     .font(.subheadline).fontWeight(.bold)
-                ForEach(house.swornMembers, id: \.self) { member in
-                    if let index = member.lastIndex(of: "/") {
-                        let id = String(member.suffix(from: index).dropFirst())
-                        NavigationLink(destination: CharacterDetailView(characterId: id)) {
-                            Text("tap to view").font(.subheadline)
-                        }
+                ForEach(members, id: \.self) { member in
+                    NavigationLink(destination: CharacterDetailView(character: member)) {
+                        Text(member.name).font(.subheadline)
                     }
                 }
             }
         }
+    }
+}
+
+extension HouseDetailView {
+    
+    private func populateCharacters() {
+        if let house = house {
+            if let index = house.heir.lastIndex(of: "/") {
+                let id = String(house.heir.suffix(from: index).dropFirst())
+                viewModel.getCharacter(id: id)
+            }
+            if let index = house.currentLord.lastIndex(of: "/") {
+                let id = String(house.currentLord.suffix(from: index).dropFirst())
+                viewModel.getCharacter(id: id)
+            }
+            if let index = house.founder.lastIndex(of: "/") {
+                let id = String(house.founder.suffix(from: index).dropFirst())
+                viewModel.getCharacter(id: id)
+            }
+            
+            let _ = house.swornMembers.compactMap({ member in
+                if let index = member.lastIndex(of: "/") {
+                    let id = String(member.suffix(from: index).dropFirst())
+                    viewModel.getCharacter(id: id)
+                }
+            })
+        }
+    }
+    
+    private func populateHouses() {
+//        if let house = house {
+//            if let index = house.overlord.lastIndex(of: "/") {
+//                let id = String(house.overlord.suffix(from: index).dropFirst())
+//                viewModel.getHouse(id: id)
+//            }
+//            for branch in house.cadetBranches {
+//                if let index = branch.lastIndex(of: "/") {
+//                    let id = String(branch.suffix(from: index).dropFirst())
+//                    viewModel.getHouse(id: id)
+//                }
+//            }
+//        }
+    }
+    
+    private func getCharacterByUrl(_ url: String) -> Character? {
+        if
+            let index = url.lastIndex(of: "/") {
+            let id = String(url.suffix(from: index).dropFirst())
+            return viewModel.characters[id]
+        }
+        return nil
+    }
+    
+    private func getHouseByUrl(_ url: String) -> House? {
+        if
+            let index = url.lastIndex(of: "/") {
+            let id = String(url.suffix(from: index).dropFirst())
+            debugPrint("Looking for branch id: \(id)")
+            return viewModel.getHouse(id: id)
+        }
+        return nil
     }
 }
 
@@ -323,6 +408,7 @@ struct HouseDetailView_Previews: PreviewProvider {
                 "Dark Sister"
             ],
             cadetBranches: [
+                "https://anapioficeandfire.com/api/houses/23",
                 "https://anapioficeandfire.com/api/houses/23"
             ],
             swornMembers: [

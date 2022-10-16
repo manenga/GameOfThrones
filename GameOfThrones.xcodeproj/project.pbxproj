@@ -26,6 +26,8 @@
 		E603EAC928FAFC450021286C /* CharacterDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EAC828FAFC450021286C /* CharacterDetailViewModel.swift */; };
 		E603EACB28FAFC9F0021286C /* CharacterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EACA28FAFC9F0021286C /* CharacterDetailView.swift */; };
 		E603EACE28FB49CA0021286C /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EACD28FB49CA0021286C /* ArrayExtensions.swift */; };
+		E603EAD028FC7B050021286C /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EACF28FC7B050021286C /* Book.swift */; };
+		E603EAD428FC8F6D0021286C /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603EAD328FC8F6D0021286C /* LocalData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		E603EAC828FAFC450021286C /* CharacterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewModel.swift; sourceTree = "<group>"; };
 		E603EACA28FAFC9F0021286C /* CharacterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailView.swift; sourceTree = "<group>"; };
 		E603EACD28FB49CA0021286C /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		E603EACF28FC7B050021286C /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		E603EAD328FC8F6D0021286C /* LocalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +165,7 @@
 			children = (
 				E603EABE28FAF7C10021286C /* Character.swift */,
 				E603EAB228FAE08A0021286C /* House.swift */,
+				E603EACF28FC7B050021286C /* Book.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -181,6 +186,7 @@
 			children = (
 				E603EAB628FAE0C70021286C /* APIClient.swift */,
 				E603EAB828FAE0DB0021286C /* Network.swift */,
+				E603EAD328FC8F6D0021286C /* LocalData.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -359,12 +365,14 @@
 				E603EAB528FAE0B00021286C /* HouseListViewModel.swift in Sources */,
 				E603EAB328FAE08A0021286C /* House.swift in Sources */,
 				E603EAB128FAE0700021286C /* HouseListView.swift in Sources */,
+				E603EAD028FC7B050021286C /* Book.swift in Sources */,
 				E603EA8628FADE700021286C /* GameOfThronesApp.swift in Sources */,
 				E603EACE28FB49CA0021286C /* ArrayExtensions.swift in Sources */,
 				E603EABF28FAF7C10021286C /* Character.swift in Sources */,
 				E603EAC928FAFC450021286C /* CharacterDetailViewModel.swift in Sources */,
 				E603EAB728FAE0C70021286C /* APIClient.swift in Sources */,
 				E603EABD28FAF2A60021286C /* HouseDetailView.swift in Sources */,
+				E603EAD428FC8F6D0021286C /* LocalData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,6 +529,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GameOfThrones/Preview Content\"";
+				DEVELOPMENT_TEAM = UVTGUCXUVV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Game of Thrones Lore";
@@ -559,6 +568,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GameOfThrones/Preview Content\"";
+				DEVELOPMENT_TEAM = UVTGUCXUVV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Game of Thrones Lore";

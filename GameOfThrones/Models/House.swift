@@ -7,7 +7,10 @@
 
 import Foundation
 
-struct House: Codable, Identifiable {
+/**
+ A `House` represents a family in the Game of Thrones world
+*/
+struct House: Codable, Identifiable, Hashable {
     
     /// unique house Identifiable number
     var id = UUID()
@@ -60,7 +63,7 @@ struct House: Codable, Identifiable {
     /// An array of Character resource URLs that are sworn to this house.
     let swornMembers: [String]
     
-
+    /// keys used to query values from the json object
     enum CodingKeys: String, CodingKey {
         case url
         case name
